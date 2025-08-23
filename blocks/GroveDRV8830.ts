@@ -1,224 +1,223 @@
 /**
- * Grove Mini I2C Motor Driver support
+ * Prise en charge du pilote de moteur Grove Mini I2C (DRV8830)
  */
-//% groups='["Mini I2C Motor Driver (DRV8830)"]'
+//% groups='["Pilote de moteur Mini I2C (DRV8830)"]'
 namespace grove {
 
     export enum DRV8830Addr {
-        //% block="Channel 1"
-        Channel1 = 0xCA,
-        //% block="Channel 2"
-        Channel2 = 0xC0,
+        //% block="Canal 1"
+        Canal1 = 0xCA,
+        //% block="Canal 2"
+        Canal2 = 0xC0,
     };
 
     export enum DRV8830Command {
-        //% block="Drive"
-        SetSpeed = 0x00,
-        //% block="Stop"
-        Stop = 0x01,
-        //% block="Brake"
-        Brake = 0x02,
-        //% block="Fault"
-        Fault = 0x03,
-        //% block="Clear Fault"
-        ClearFault = 0x04,
+        //% block="Faire tourner"
+        FaireTourner = 0x00,
+        //% block="Arrêter"
+        Arreter = 0x01,
+        //% block="Freiner"
+        Freiner = 0x02,
+        //% block="Défaut"
+        Defaut = 0x03,
+        //% block="Effacer le défaut"
+        EffacerDefaut = 0x04,
     };
 
     export enum DRV8830Fault {
-        //% block="Connection Error"
-        ConnectionError = -1,
-        //% block="No Fault"
-        NoFault = 0x00,
-        //% block="Current Limit"
-        Fault = 0b00010000,
-        //% block="Over Temperature"
-        OverTemperature = 0b00001000,
-        //% block="Under Voltage"
-        UnderVoltage = 0b00000100,
-        //% block="Over Current"
-        OverCurrent = 0b00000010,
-        //% block="Unknow Fault"
-        UnknowFault = 0b00000001,
+        //% block="Erreur de connexion"
+        ErreurConnexion = -1,
+        //% block="Pas de défaut"
+        PasDeDefaut = 0x00,
+        //% block="Limite de courant"
+        LimiteCourant = 0b00010000,
+        //% block="Surchauffe"
+        Surchauffe = 0b00001000,
+        //% block="Sous-tension"
+        SousTension = 0b00000100,
+        //% block="Surcharge de courant"
+        SurchargeCourant = 0b00000010,
+        //% block="Défaut inconnu"
+        DefautInconnu = 0b00000001,
     };
 
 
-    let _drv8830_channel1: grove.sensors.DRV8830 = null;
-    let _drv8830_channel2: grove.sensors.DRV8830 = null;
+    let _drv8830_canal1: grove.sensors.DRV8830 = null;
+    let _drv8830_canal2: grove.sensors.DRV8830 = null;
 
     function getDRV8830Instance(
-        channel: DRV8830Addr,
+        canal: DRV8830Addr,
         serialLogging: boolean = false
     ): grove.sensors.DRV8830 {
-        switch (channel) {
-            case DRV8830Addr.Channel1:
-                if (!_drv8830_channel1) {
-                    _drv8830_channel1 = new grove.sensors.DRV8830(DRV8830Addr.Channel1, serialLogging);
-                    while (!_drv8830_channel1.connect());
+        switch (canal) {
+            case DRV8830Addr.Canal1:
+                if (!_drv8830_canal1) {
+                    _drv8830_canal1 = new grove.sensors.DRV8830(DRV8830Addr.Canal1, serialLogging);
+                    while (!_drv8830_canal1.connect());
                 }
-                return _drv8830_channel1;
-            case DRV8830Addr.Channel2:
-                if (!_drv8830_channel2) {
-                    _drv8830_channel2 = new grove.sensors.DRV8830(DRV8830Addr.Channel2, serialLogging);
-                    while (!_drv8830_channel2.connect());
+                return _drv8830_canal1;
+            case DRV8830Addr.Canal2:
+                if (!_drv8830_canal2) {
+                    _drv8830_canal2 = new grove.sensors.DRV8830(DRV8830Addr.Canal2, serialLogging);
+                    while (!_drv8830_canal2.connect());
                 }
-                return _drv8830_channel2;
+                return _drv8830_canal2;
             default:
                 return null;
         }
     }
 
     /**
-     * Set the speed of the motor using the DRV8830 driver.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
-     * @param speed The speed to set (-64 to 63)
+     * Régler la vitesse du moteur avec le pilote DRV8830.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
+     * @param vitesse La vitesse à régler (-64 à 63)
      */
-    //% block="set %channel speed to %speed"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="régler %canal à la vitesse %vitesse"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% advanced=true
     //% weight=99
-    export function setSpeedUsingDRV8830(
-        channel: DRV8830Addr = DRV8830Addr.Channel1,
-        speed: number = 0
+    export function reglerVitesseDRV8830(
+        canal: DRV8830Addr = DRV8830Addr.Canal1,
+        vitesse: number = 0
     ): boolean {
-        const drv8830 = getDRV8830Instance(channel);
+        const drv8830 = getDRV8830Instance(canal);
         if (!drv8830) return false;
-        return drv8830.setSpeed(speed);
+        return drv8830.setSpeed(vitesse);
     }
 
     /**
-     * Set the speed of the motor using the DRV8830 driver without returning a value.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
-     * @param speed The speed to set (-64 to 63)
+     * Régler la vitesse du moteur avec le pilote DRV8830 sans valeur de retour.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
+     * @param vitesse La vitesse à régler (-64 à 63)
      */
-    //% block="set %channel speed to %speed"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="régler %canal à la vitesse %vitesse"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% weight=99
-    export function setSpeedUsingDRV8830NoReturn(
-        channel: DRV8830Addr = DRV8830Addr.Channel1,
-        speed: number = 0
+    export function reglerVitesseDRV8830SansRetour(
+        canal: DRV8830Addr = DRV8830Addr.Canal1,
+        vitesse: number = 0
     ) {
-        setSpeedUsingDRV8830(channel, speed);
+        reglerVitesseDRV8830(canal, vitesse);
     }
 
     /**
-     * Stop the motor using the DRV8830 driver.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
+     * Arrêter le moteur avec le pilote DRV8830.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
      */
-    //% block="stop motor on %channel"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="arrêter le moteur sur %canal"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% advanced=true
     //% weight=98
-    export function stopUsingDRV8830(
-        channel: DRV8830Addr = DRV8830Addr.Channel1
+    export function arreterDRV8830(
+        canal: DRV8830Addr = DRV8830Addr.Canal1
     ): boolean {
-        const drv8830 = getDRV8830Instance(channel);
+        const drv8830 = getDRV8830Instance(canal);
         if (!drv8830) return false;
         return drv8830.setStop();
     }
 
     /**
-     * Stop the motor using the DRV8830 driver without returning a value.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
+     * Arrêter le moteur avec le pilote DRV8830 sans valeur de retour.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
      */
-    //% block="stop motor on %channel"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="arrêter le moteur sur %canal"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% weight=98
-    export function stopUsingDRV8830NoReturn(
-        channel: DRV8830Addr = DRV8830Addr.Channel1
+    export function arreterDRV8830SansRetour(
+        canal: DRV8830Addr = DRV8830Addr.Canal1
     ) {
-        stopUsingDRV8830(channel);
+        arreterDRV8830(canal);
     }
 
     /**
-     * Brake the motor using the DRV8830 driver.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
+     * Freiner le moteur avec le pilote DRV8830.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
      */
-    //% block="brake motor on %channel"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="freiner le moteur sur %canal"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% advanced=true
     //% weight=97
-    export function brakeUsingDRV8830(
-        channel: DRV8830Addr = DRV8830Addr.Channel1
+    export function freinerDRV8830(
+        canal: DRV8830Addr = DRV8830Addr.Canal1
     ): boolean {
-        const drv8830 = getDRV8830Instance(channel);
+        const drv8830 = getDRV8830Instance(canal);
         if (!drv8830) return false;
         return drv8830.setBrake();
     }
 
     /**
-     * Brake the motor using the DRV8830 driver without returning a value.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
+     * Freiner le moteur avec le pilote DRV8830 sans valeur de retour.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
      */
-    //% block="brake motor on %channel"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="freiner le moteur sur %canal"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% weight=97
-    export function brakeUsingDRV8830NoReturn(
-        channel: DRV8830Addr = DRV8830Addr.Channel1
+    export function freinerDRV8830SansRetour(
+        canal: DRV8830Addr = DRV8830Addr.Canal1
     ) {
-        brakeUsingDRV8830(channel);
+        freinerDRV8830(canal);
     }
 
     /**
-     * Get the fault status from the DRV8830 driver.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
-     * @return The fault status as a DRV8830Fault enum value
+     * Obtenir l'état de défaut depuis le pilote DRV8830.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
+     * @return L'état du défaut comme valeur de l'énumération DRV8830Fault
      */
-    //% block="get fault from %channel"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="obtenir le défaut de %canal"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% weight=96
-    export function getFaultFromDRV8830(
-        channel: DRV8830Addr = DRV8830Addr.Channel1
+    export function obtenirDefautDRV8830(
+        canal: DRV8830Addr = DRV8830Addr.Canal1
     ): DRV8830Fault {
-        const drv8830 = getDRV8830Instance(channel);
-        if (!drv8830) return DRV8830Fault.UnknowFault;
-        const fault = drv8830.getFault();
-        switch (fault) {
+        const drv8830 = getDRV8830Instance(canal);
+        if (!drv8830) return DRV8830Fault.DefautInconnu;
+        const defaut = drv8830.getFault();
+        switch (defaut) {
             case 0x00:
-                return DRV8830Fault.NoFault;
+                return DRV8830Fault.PasDeDefaut;
             case 0b00010000:
-                return DRV8830Fault.Fault;
+                return DRV8830Fault.LimiteCourant;
             case 0b00001000:
-                return DRV8830Fault.OverTemperature;
+                return DRV8830Fault.Surchauffe;
             case 0b00000100:
-                return DRV8830Fault.UnderVoltage;
+                return DRV8830Fault.SousTension;
             case 0b00000010:
-                return DRV8830Fault.OverCurrent;
+                return DRV8830Fault.SurchargeCourant;
             case 0b00000001:
-                return DRV8830Fault.UnknowFault;
+                return DRV8830Fault.DefautInconnu;
             default:
-                return DRV8830Fault.ConnectionError;
+                return DRV8830Fault.ErreurConnexion;
         }
-
     }
 
     /**
-     * Clear the fault status on the DRV8830 driver.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
-     * @return True if the fault was cleared successfully, false otherwise
+     * Effacer l'état de défaut sur le pilote DRV8830.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
+     * @return Vrai si le défaut a été effacé avec succès, faux sinon
      */
-    //% block="clear fault on %channel"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="effacer le défaut sur %canal"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% advanced=true
     //% weight=95
-    export function clearFaultUsingDRV8830(
-        channel: DRV8830Addr = DRV8830Addr.Channel1
+    export function effacerDefautDRV8830(
+        canal: DRV8830Addr = DRV8830Addr.Canal1
     ): boolean {
-        const drv8830 = getDRV8830Instance(channel);
+        const drv8830 = getDRV8830Instance(canal);
         if (!drv8830) return false;
         return drv8830.clearFault();
     }
 
     /**
-     * Clear the fault status on the DRV8830 driver without returning a value.
-     * @param channel The DRV8830 channel to use (Channel 1 or Channel 2)
+     * Effacer l'état de défaut sur le pilote DRV8830 sans valeur de retour.
+     * @param canal Le canal DRV8830 à utiliser (Canal 1 ou Canal 2)
      */
-    //% block="clear fault on %channel"
-    //% group="Mini I2C Motor Driver (DRV8830)"
+    //% block="effacer le défaut sur %canal"
+    //% group="Pilote de moteur Mini I2C (DRV8830)"
     //% weight=95
-    export function clearFaultUsingDRV8830NoReturn(
-        channel: DRV8830Addr = DRV8830Addr.Channel1
+    export function effacerDefautDRV8830SansRetour(
+        canal: DRV8830Addr = DRV8830Addr.Canal1
     ) {
-        clearFaultUsingDRV8830(channel);
+        effacerDefautDRV8830(canal);
     }
 
 }
