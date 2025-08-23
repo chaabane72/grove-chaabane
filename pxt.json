@@ -25,7 +25,6 @@
         "_locales/ja/Grove-strings.json",
         "_locales/de/Grove-strings.json",
         "sensors/AHT20.ts",
-        "sensors/DHT11.cpp",
         "sensors/DHT11Helper.ts",
         "sensors/DHT20.ts",
         "sensors/DRV8830.ts",
@@ -38,7 +37,7 @@
     ],
     "public": true,
     "targetVersions": {
-        "target": "7.0.51",
+        "target": "8.0.16",
         "targetId": "microbit"
     },
     "supportedTargets": [
