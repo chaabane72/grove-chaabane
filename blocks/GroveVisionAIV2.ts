@@ -1,30 +1,22 @@
-
 /**
- * SenseCraft AI support for Grove Vision AI Module V2
+ * Support IA SenseCraft pour le module Grove Vision AI V2
  */
 //% groups='["Vision AI V2"]'
 namespace grove {
 
     namespace vision_ai_v2 {
-
         export let transport: grove.plugins.sscma.Transport;
         export let atClient: grove.plugins.sscma.ATClient;
 
         export let detectionResults: DetectionResult[] = [];
         export let classificationResults: ClassificationResult[] = [];
         export let errorCode: OperationCode = OperationCode.Unknown;
-
     }
 
-
     /**
-     * Connect and setup the Grove Vision AI Module V2 through I2C transport
-     * @param serialLogging Enable serial logging for debugging
-     * @param i2cAddress The I2C address of the Grove Vision AI Module V2
-     * @param i2cClock The I2C clock speed, default is 400kHz
-     * @param force Force re-connection and setup even if already connected
+     * Connecter et configurer le module Grove Vision AI V2 via I2C
      */
-    //% block="connect and setup device, serial logging %serialLogging"
+    //% block="connecter et configurer l'appareil, journal série %serialLogging"
     //% group="Vision AI V2"
     //% weight=100
     //% color="#AA278D"
@@ -52,11 +44,9 @@ namespace grove {
     }
 
     /**
-     * Get the device status of the Grove Vision AI Module V2
-     * @param fromCache Use cached status if available, default is true
-     * @return The current device status
+     * Obtenir l'état de l'appareil Grove Vision AI V2
      */
-    //% block="get device status"
+    //% block="obtenir l'état de l'appareil"
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=99
@@ -68,12 +58,10 @@ namespace grove {
     }
 
     /**
-     * Get the device name of the Grove Vision AI Module V2
-     * @param fromCache Use cached name if available, default is true
-     * @return The device name as a string
+     * Obtenir le nom de l'appareil Grove Vision AI V2
      */
-    //% block="get device name"
-    //% blockSetVariable=deviceName
+    //% block="obtenir le nom de l'appareil"
+    //% blockSetVariable=nomAppareil
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=98
@@ -85,12 +73,10 @@ namespace grove {
     }
 
     /**
-     * Get the device ID of the Grove Vision AI Module V2
-     * @param fromCache Use cached ID if available, default is true
-     * @return The device ID as a string
+     * Obtenir l'ID de l'appareil Grove Vision AI V2
      */
-    //% block="get device id"
-    //% blockSetVariable=deviceId
+    //% block="obtenir l'ID de l'appareil"
+    //% blockSetVariable=idAppareil
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=97
@@ -102,12 +88,10 @@ namespace grove {
     }
 
     /**
-     * Get the AI model info from the Grove Vision AI Module V2
-     * @param fromCache Use cached model info if available, default is true
-     * @return An object containing the model info, including name, version, and supported classes
+     * Obtenir les infos du modèle IA du Grove Vision AI V2
      */
-    //% block="get ai model info"
-    //% blockSetVariable=modelInfo
+    //% block="obtenir les infos du modèle IA"
+    //% blockSetVariable=infosModele
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=89
@@ -119,12 +103,9 @@ namespace grove {
     }
 
     /**
-     * Start AI inference on the Grove Vision AI Module V2
-     * @param timeout The timeout in milliseconds for the inference operation, default is 1000ms
-     * @param force Force start inference even if already running, default is true
-     * @return True if inference started successfully, otherwise false
+     * Démarrer l'inférence IA sur le Grove Vision AI V2
      */
-    //% block="start ai inference"
+    //% block="démarrer l'inférence IA"
     //% group="Vision AI V2"
     //% weight=79
     //% color="#AA278D"
@@ -164,12 +145,9 @@ namespace grove {
     }
 
     /**
-     * Fetch AI inference results from the Grove Vision AI Module V2
-     * @param maxResults The maximum number of results to fetch, default is 15
-     * @param timeout The timeout in milliseconds for the fetch operation, default is 1000ms
-     * @return True if results fetched successfully, otherwise false
+     * Récupérer les résultats d'inférence IA
      */
-    //% block="fetch ai inference results"
+    //% block="récupérer les résultats d'inférence IA"
     //% group="Vision AI V2"
     //% weight=78
     //% color="#008D63"
@@ -193,10 +171,9 @@ namespace grove {
     }
 
     /**
-     * Stop AI inference on the Grove Vision AI Module V2
-     * @param timeout The timeout in milliseconds for the stop operation, default is 1000ms
+     * Arrêter l'inférence IA
      */
-    //% block="stop ai inference"
+    //% block="arrêter l'inférence IA"
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=77
@@ -207,17 +184,14 @@ namespace grove {
     }
 
     /**
-     * Get total number of specific object id(s)
-     * @param ids An array of object IDs to count
-     * @return The total count of objects with the specified IDs
+     * Compter les objets par ID
      */
-    //% block
+    //% block="compter les objets avec ID %ids"
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=69
     export function countObjectById(ids: number[]): number {
         let count = 0;
-
         for (let detectionResult of vision_ai_v2.detectionResults) {
             for (let id of ids) {
                 if (detectionResult.id == id) {
@@ -225,7 +199,6 @@ namespace grove {
                 }
             }
         }
-
         for (let classificationResult of vision_ai_v2.classificationResults) {
             for (let id of ids) {
                 if (classificationResult.id == id) {
@@ -233,21 +206,17 @@ namespace grove {
                 }
             }
         }
-
         return count;
     }
 
     /**
-     * Get total number of specific object name(s)
-     * @param labels An array of object names to count
-     * @return The total count of objects with the specified names
+     * Compter les objets par nom
      */
-    //% block
+    //% block="compter les objets nommés %labels"
     //% group="Vision AI V2"
     //% weight=68
     export function countObjectByName(labels: string[]): number {
         let count = 0;
-
         for (let detectionResult of vision_ai_v2.detectionResults) {
             for (let label of labels) {
                 if (detectionResult.label == label) {
@@ -255,7 +224,6 @@ namespace grove {
                 }
             }
         }
-
         for (let classificationResult of vision_ai_v2.classificationResults) {
             for (let label of labels) {
                 if (classificationResult.label == label) {
@@ -263,16 +231,13 @@ namespace grove {
                 }
             }
         }
-
         return count;
     }
 
     /**
-     * Check if contains specific object id(s)
-     * @param ids An array of object IDs to check
-     * @return True if any of the specified object IDs are found, otherwise false
+     * Vérifier si des objets avec ID existent
      */
-    //% block
+    //% block="contient un objet avec ID %ids"
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=67
@@ -281,11 +246,9 @@ namespace grove {
     }
 
     /**
-     * Check if contains specific object name(s)
-     * @param labels An array of object names to check
-     * @return True if any of the specified object names are found, otherwise false
+     * Vérifier si des objets avec nom existent
      */
-    //% block
+    //% block="contient un objet nommé %labels"
     //% group="Vision AI V2"
     //% weight=66
     export function containsObjectName(labels: string[]): boolean {
@@ -293,11 +256,9 @@ namespace grove {
     }
 
     /**
-     * Event on receive detection results from the Grove Vision AI Module V2, the handler will
-     * be called with the detection results when available, while fetching results from the device.
-     * @param handler The callback function to handle detection results
+     * Quand des résultats de détection sont reçus
      */
-    //% block="on receive detection results"
+    //% block="quand résultats de détection reçus"
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=59
@@ -307,11 +268,9 @@ namespace grove {
     }
 
     /**
-     * Event on receive classification results from the Grove Vision AI Module V2, the handler will
-     * be called with the classification results when available, while fetching results from the device.
-     * @param handler The callback function to handle classification results
+     * Quand des résultats de classification sont reçus
      */
-    //% block="on receive classification results"
+    //% block="quand résultats de classification reçus"
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=58
@@ -321,11 +280,9 @@ namespace grove {
     }
 
     /**
-     * Event on receive error from the Grove Vision AI Module V2, the handler will
-     * be called with the error code when available, while fetching results from the device.
-     * @param handler The callback function to handle error results
+     * Quand une erreur est reçue
      */
-    //% block="on receive error"
+    //% block="quand une erreur est reçue"
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=57
@@ -335,12 +292,10 @@ namespace grove {
     }
 
     /**
-     * Get fetched detection results from the Grove Vision AI Module V2
-     * @return An array of DetectionResult objects containing the results of the last inference
-     *          operation, or an empty array if no results are available.
+     * Obtenir les résultats de détection récupérés
      */
-    //% block="get fetched detection results"
-    //% blockSetVariable=detectionResults
+    //% block="obtenir résultats de détection"
+    //% blockSetVariable=resultatsDetection
     //% group="Vision AI V2"
     //% weight=56
     export function getFetchedDetectionResults(): DetectionResult[] {
@@ -348,12 +303,10 @@ namespace grove {
     }
 
     /**
-     * Get fetched classification results from the Grove Vision AI Module V2
-     * @return An array of ClassificationResult objects containing the results of the last inference
-     *          operation, or an empty array if no results are available.
+     * Obtenir les résultats de classification récupérés
      */
-    //% block="get fetched classification results"
-    //% blockSetVariable=classificationResults
+    //% block="obtenir résultats de classification"
+    //% blockSetVariable=resultatsClassification
     //% group="Vision AI V2"
     //% weight=55
     export function getFetchedClassificationResults(): ClassificationResult[] {
@@ -361,16 +314,14 @@ namespace grove {
     }
 
     /**
-     * Get the AI inference error code from the Grove Vision AI Module V2
-     * @return The error code as an OperationCode enum value, indicating the status of the last inference operation.
+     * Obtenir le code d'erreur d'inférence IA
      */
-    //% block="get inference error code"
-    //% blockSetVariable=errorCode
+    //% block="obtenir code d'erreur d'inférence IA"
+    //% blockSetVariable=codeErreur
     //% group="Vision AI V2"
     //% advanced=true
     //% weight=54
     export function getAIInferenceErrorCode(): OperationCode {
         return vision_ai_v2.errorCode;
     }
-
 };
