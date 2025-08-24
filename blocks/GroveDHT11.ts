@@ -1,19 +1,19 @@
 /**
- * Grove Temperature & Humidity Sensor (DHT11) support
+ * Grove Capteur de Température & Humidité (DHT11)
  */
-//% groups='["Temperature & Humidity Sensor (DHT11)"]'
+//% groups='["Capteur de Température & Humidité (DHT11)"]'
 namespace grove {
 
     /**
-    * Connect and setup the Grove Temperature & Humidity Sensor (DHT11)
-    * @param signalPin The digital pin connected to the sensor
-    * @param serialLogging Enable serial logging for debugging
-    * @return A DHT11Helper instance for reading temperature and humidity
+    * Connecter et configurer le capteur Grove de Température & Humidité (DHT11)
+    * @param signalPin La broche numérique connectée au capteur
+    * @param serialLogging Activer le journal série pour le débogage
+    * @return Une instance DHT11Helper pour lire température et humidité
     */
-    //% block="connect to sensor on %signalPin, serial logging %serialLogging"
+    //% block="connecter le capteur sur %signalPin, journal série %serialLogging"
     //% signalPin.defl=DigitalPin.P1
     //% blockSetVariable=dht11
-    //% group="Temperature & Humidity Sensor (DHT11)"
+    //% group="Capteur de Température & Humidité (DHT11)"
     //% weight=99
     //% color="#AA278D"
     export function connectToDHT11(signalPin: DigitalPin = DigitalPin.P1, serialLogging: boolean = false): grove.sensors.DHT11Helper {
@@ -21,15 +21,15 @@ namespace grove {
     }
 
     /**
-     * Read the temperature and humidity from the sensor
-     * @param sensor The DHT11Helper instance
-     * @param forceRead Force a read from sensor even if the last read was recent (in 2 seconds), false is recommended for normal usage
-     * @return True if the read was successful, otherwise false
+     * Lire la température et l'humidité du capteur
+     * @param sensor L'instance DHT11Helper
+     * @param forceRead Forcer une lecture même si la dernière est récente (2s), false recommandé en usage normal
+     * @return True si la lecture a réussi, sinon false
      */
-    //% block="read temperature and humidity from $sensor, force read %forceRead"
+    //% block="lire température et humidité de $sensor, forcer lecture %forceRead"
     //% sensor.defl=dht11
     //% sensor.shadow=variables_get
-    //% group="Temperature & Humidity Sensor (DHT11)"
+    //% group="Capteur de Température & Humidité (DHT11)"
     //% weight=98
     //% color="#008D63"
     export function readTemperatureHumidity(sensor: grove.sensors.DHT11Helper, forceRead: boolean = false): boolean {
@@ -41,15 +41,15 @@ namespace grove {
 
 
     /**
-     * Get the humidity in percentage
-     * @param sensor The DHT11Helper instance
-     * @param autoRead Automatically read the sensor data before getting humidity
-     * @return The humidity value in percentage, or NaN if the sensor is not connected
+     * Obtenir l'humidité en pourcentage
+     * @param sensor L'instance DHT11Helper
+     * @param autoRead Lire automatiquement avant d'obtenir l'humidité
+     * @return L'humidité en %, ou NaN si le capteur n'est pas connecté
      */
-    //% block="get humidity from $sensor"
+    //% block="obtenir humidité depuis $sensor"
     //% sensor.defl=dht11
     //% sensor.shadow=variables_get
-    //% group="Temperature & Humidity Sensor (DHT11)"
+    //% group="Capteur de Température & Humidité (DHT11)"
     //% weight=89
     export function getHumidity(sensor: grove.sensors.DHT11Helper, autoRead: boolean = true): number {
         if (sensor) {
@@ -62,15 +62,15 @@ namespace grove {
     }
 
     /**
-     * Get the temperature in Celsius
-     * @param sensor The DHT11Helper instance
-     * @param autoRead Automatically read the sensor data before getting temperature
-     * @return The temperature value in Celsius, or NaN if the sensor is not connected
+     * Obtenir la température en Celsius
+     * @param sensor L'instance DHT11Helper
+     * @param autoRead Lire automatiquement avant d'obtenir la température
+     * @return La température en °C, ou NaN si le capteur n'est pas connecté
      */
-    //% block="get temperature in celsius from $sensor"
+    //% block="obtenir température en celsius depuis $sensor"
     //% sensor.defl=dht11
     //% sensor.shadow=variables_get
-    //% group="Temperature & Humidity Sensor (DHT11)"
+    //% group="Capteur de Température & Humidité (DHT11)"
     //% weight=88
     export function getTemperatureCelsius(sensor: grove.sensors.DHT11Helper, autoRead: boolean = true): number {
         if (sensor) {
@@ -83,15 +83,15 @@ namespace grove {
     }
 
     /**
-     * Get the temperature in Fahrenheit
-     * @param sensor The DHT11Helper instance
-     * @param autoRead Automatically read the sensor data before getting temperature
-     * @return The temperature value in Fahrenheit, or NaN if the sensor is not connected
+     * Obtenir la température en Fahrenheit
+     * @param sensor L'instance DHT11Helper
+     * @param autoRead Lire automatiquement avant d'obtenir la température
+     * @return La température en °F, ou NaN si le capteur n'est pas connecté
      */
-    //% block="get temperature in fahrenheit from $sensor"
+    //% block="obtenir température en fahrenheit depuis $sensor"
     //% sensor.defl=dht11
     //% sensor.shadow=variables_get
-    //% group="Temperature & Humidity Sensor (DHT11)"
+    //% group="Capteur de Température & Humidité (DHT11)"
     //% weight=87
     export function getTemperatureFahrenheit(sensor: grove.sensors.DHT11Helper, autoRead: boolean = true): number {
         if (sensor) {
