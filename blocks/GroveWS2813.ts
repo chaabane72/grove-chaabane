@@ -1,19 +1,16 @@
 /**
- * Grove RGB LED strip (WS2813) support
+ * Support du ruban Grove RGB LED (WS2813)
  */
-//% groups='["RGB LED (WS2813)"]'
+//% groups='["Ruban RGB LED (WS2813)"]'
 namespace grove {
 
     /**
-     * Connect and setup the Grove RGB LED strip (WS2813)
-     * @param signalPin The digital pin connected to the strip
-     * @param numLEDs The number of LEDs in the strip
-     * @return A neopixel.Strip instance for controlling the LED strip
+     * Connecter et configurer le ruban Grove RGB LED (WS2813)
      */
-    //% block="connect to color strip on %signalPin with %numLEDs LED(s)"
+    //% block="connecter au ruban de LED sur %signalPin avec %numLEDs LED(s)"
     //% signalPin.defl=DigitalPin.P1
     //% numLEDs.defl=16
-    //% group="RGB LED (WS2813)"
+    //% group="Ruban RGB LED (WS2813)"
     //% weight=99
     //% blockSetVariable=strip
     export function connectToWS2813Strip(
@@ -26,17 +23,14 @@ namespace grove {
         return strip;
     }
 
-
     /**
-     * Show a color on the WS2813 strip
-     * @param strip The neopixel.Strip instance
-     * @param color The color to show (default is Red)
+     * Afficher une couleur sur tout le ruban
      */
-    //% block="change color strip $strip to color $color"
+    //% block="changer la couleur du ruban $strip en $color"
     //% strip.defl=strip
     //% color.defl=NeoPixelColors.Red
     //% strip.shadow=variables_get
-    //% group="RGB LED (WS2813)"
+    //% group="Ruban RGB LED (WS2813)"
     //% weight=89
     export function showColorOnWS2813Strip(
         strip: neopixel.Strip,
@@ -50,13 +44,12 @@ namespace grove {
     }
 
     /**
-     * Clear the WS2813 strip
-     * @param strip The neopixel.Strip instance
+     * Effacer tout le ruban
      */
-    //% block="clear color strip $strip"
+    //% block="effacer le ruban $strip"
     //% strip.defl=strip
     //% strip.shadow=variables_get
-    //% group="RGB LED (WS2813)"
+    //% group="Ruban RGB LED (WS2813)"
     //% weight=88
     export function clearWS2813Strip(strip: neopixel.Strip): void {
         strip.clear();
@@ -64,17 +57,14 @@ namespace grove {
     }
 
     /**
-     * Show a color at a specific index on the WS2813 strip
-     * @param strip The neopixel.Strip instance
-     * @param index The index of the LED to change
-     * @param color The color to show (default is Red)
+     * Afficher une couleur sur une LED spécifique
      */
-    //% block="change color strip $strip at index %index to color $color"
+    //% block="changer la couleur du ruban $strip à l'index %index en $color"
     //% strip.defl=strip
     //% index.defl=0
     //% color.defl=NeoPixelColors.Red
     //% strip.shadow=variables_get
-    //% group="RGB LED (WS2813)"
+    //% group="Ruban RGB LED (WS2813)"
     //% weight=87
     export function showColorAtIndexOnWS2813Strip(
         strip: neopixel.Strip,
@@ -89,15 +79,13 @@ namespace grove {
     }
 
     /**
-     * Clear a specific index on the WS2813 strip
-     * @param strip The neopixel.Strip instance
-     * @param index The index of the LED to clear
+     * Effacer une LED spécifique
      */
-    //% block="clear color strip $strip at index %index"
+    //% block="effacer le ruban $strip à l'index %index"
     //% strip.defl=strip
     //% index.defl=0
     //% strip.shadow=variables_get
-    //% group="RGB LED (WS2813)"
+    //% group="Ruban RGB LED (WS2813)"
     //% weight=86
     export function clearAtIndexOnWS2813Strip(strip: neopixel.Strip, index: number): void {
         if (index < 0 || index >= strip.length()) {
@@ -108,15 +96,13 @@ namespace grove {
     }
 
     /**
-     * Set the brightness of the WS2813 strip
-     * @param strip The neopixel.Strip instance
-     * @param brightness The brightness level (0-255)
+     * Régler la luminosité du ruban
      */
-    //% block="set brightness of color strip $strip to %brightness"
+    //% block="régler la luminosité du ruban $strip à %brightness"
     //% strip.defl=strip
     //% brightness.defl=100
     //% strip.shadow=variables_get
-    //% group="RGB LED (WS2813)"
+    //% group="Ruban RGB LED (WS2813)"
     //% weight=85
     export function setBrightnessOnWS2813Strip(strip: neopixel.Strip, brightness: number): void {
         if (brightness < 0 || brightness > 255) {
@@ -127,19 +113,15 @@ namespace grove {
     }
 
     /**
-     * Show a custom color on the WS2813 strip
-     * @param strip The neopixel.Strip instance
-     * @param red The red component (0-255)
-     * @param green The green component (0-255)
-     * @param blue The blue component (0-255)
+     * Afficher une couleur personnalisée sur tout le ruban
      */
-    //% block="change color strip $strip to custom color R: %red G: %green B: %blue"
+    //% block="changer la couleur du ruban $strip en couleur perso R: %red V: %green B: %blue"
     //% strip.defl=strip
     //% red.defl=255
     //% green.defl=0
     //% blue.defl=0
     //% strip.shadow=variables_get
-    //% group="RGB LED (WS2813)"
+    //% group="Ruban RGB LED (WS2813)"
     //% weight=85
     export function showCustomColorOnWS2813Strip(
         strip: neopixel.Strip,
@@ -155,21 +137,16 @@ namespace grove {
     }
 
     /**
-     * Show a custom color at a specific index on the WS2813 strip
-     * @param strip The neopixel.Strip instance
-     * @param index The index of the LED to change
-     * @param red The red component (0-255)
-     * @param green The green component (0-255)
-     * @param blue The blue component (0-255)
+     * Afficher une couleur personnalisée sur une LED spécifique
      */
-    //% block="change color strip $strip at index %index to custom color R: %red G: %green B: %blue"
+    //% block="changer la couleur du ruban $strip à l'index %index en couleur perso R: %red V: %green B: %blue"
     //% strip.defl=strip
     //% index.defl=0
     //% red.defl=255
     //% green.defl=0
     //% blue.defl=0
     //% strip.shadow=variables_get
-    //% group="RGB LED (WS2813)"
+    //% group="Ruban RGB LED (WS2813)"
     //% weight=84
     export function showCustomColorAtIndexOnWS2813Strip(
         strip: neopixel.Strip,
